@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <!-- Tool bar -->
+    <include android:id="@+id/tool_bar" layout="@layout/tool_bar"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:scrollbars="none"
+        android:id="@+id/horizontalScrollView"
+        android:background="@color/ColorPrimaryDark">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/keywords_checkbox"
+            android:orientation="horizontal"></LinearLayout>
+
+    </HorizontalScrollView>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/input_title"
+        android:hint="Title" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/input_content"
+        android:hint="Content"
+        android:layout_weight="0.56" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/progressBar"/>
+
+</LinearLayout>
