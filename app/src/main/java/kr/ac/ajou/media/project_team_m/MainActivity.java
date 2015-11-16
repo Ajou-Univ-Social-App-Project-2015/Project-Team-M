@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
+
         if(AccessToken.getCurrentAccessToken() != null) {
             // If user already log in
             Intent intent = new Intent(MainActivity.this, LoginCheckActivity.class);
