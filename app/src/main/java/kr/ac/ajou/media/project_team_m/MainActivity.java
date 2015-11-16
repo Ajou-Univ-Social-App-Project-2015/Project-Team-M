@@ -44,15 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
-
         if(AccessToken.getCurrentAccessToken() != null) {
-            // If user already log in
+            // If user already log in,
+            // update.......................
             Intent intent = new Intent(MainActivity.this, LoginCheckActivity.class);
             intent.putExtra("user", AccessToken.getCurrentAccessToken().getUserId().toString());
             startActivity(intent);
             finish();
         }
-
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("id");
