@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(AccessToken.getCurrentAccessToken() != null) {
-            // If user already log in,
+            // If user already log in
             Intent intent = new Intent(MainActivity.this, LoginCheckActivity.class);
             intent.putExtra("user", AccessToken.getCurrentAccessToken().getUserId().toString());
             startActivity(intent);
