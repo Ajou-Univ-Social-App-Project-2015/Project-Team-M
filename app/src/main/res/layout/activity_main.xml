@@ -5,31 +5,13 @@
     <!-- Tool bar -->
     <include android:id="@+id/tool_bar" layout="@layout/tool_bar"/>
 
-    <TextView
-        android:layout_below="@+id/tool_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world"
-        android:id="@+id/textView" />
-
-
     <!-- Face book login -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/info"
-        android:textSize="18sp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:text="iiii" />
-
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_below="@+id/tool_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="181dp" />
 
 </RelativeLayout>

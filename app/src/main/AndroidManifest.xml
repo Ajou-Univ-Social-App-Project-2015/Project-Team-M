@@ -27,6 +27,7 @@
 
         <activity android:name=".LoginCheckActivity"/>
         <activity android:name=".ListActivity"/>
+        <activity android:name=".InputActivity"/>
 
     </application>
 

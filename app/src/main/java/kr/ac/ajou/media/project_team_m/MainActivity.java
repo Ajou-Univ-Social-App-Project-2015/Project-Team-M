@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private String id, name, email;
 
     private LoginButton loginButton;
-    private TextView info;
 
     // Tool bar Properties
     private Toolbar toolbar;
@@ -48,23 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(AccessToken.getCurrentAccessToken() != null) {
-
-//            CheckMember checkMember = new CheckMember();
-//            checkMember.execute("");
-
-
             // If user already log in,
-            Intent intent = new Intent(MainActivity.this, LoginCheckActivity.class);
+            Intent intent = new Intent(MainActivity.this, InputActivity.class);
             intent.putExtra("user", AccessToken.getCurrentAccessToken().getUserId().toString());
             startActivity(intent);
             finish();
         }
 
 
-
-        info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions("id");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -77,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                                     id = (String) response.getJSONObject().get("id");
                                     name = (String) response.getJSONObject().get("name");
                                     email = (String) response.getJSONObject().get("email");
-                                    info.setText(email);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -90,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 meRequest.executeAsync();
 
                 Intent intent = new Intent(MainActivity.this, LoginCheckActivity.class);
-                intent.putExtra("user", email);
+                intent.putExtra("user", id);
                 startActivity(intent);
                 finish();
             }
