@@ -42,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main);
 
-
         callbackManager = CallbackManager.Factory.create();
-
 
         if(AccessToken.getCurrentAccessToken() != null) {
             // If user already log in
