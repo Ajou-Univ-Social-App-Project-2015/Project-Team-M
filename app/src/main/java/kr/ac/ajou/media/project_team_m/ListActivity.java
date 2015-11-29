@@ -26,7 +26,7 @@ public class ListActivity extends Activity {
     }
 
     public void onClick(View view) {
-        Intent intent = new Intent(this, LoginCheckActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
     }

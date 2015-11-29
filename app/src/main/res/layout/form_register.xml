@@ -3,24 +3,72 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_nick"
-        android:hint="Write your nickname."/>
+    <!-- Tool bar -->
+    <include android:id="@+id/tool_bar" layout="@layout/tool_bar"/>
 
-    <EditText
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_email"
-        android:hint="Write your email"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="match_parent">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Insert"
-        android:id="@+id/button_register" />
+        <EditText
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editNick"
+            android:hint="Nickname.."
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/editEmail"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/editEmail"
+            android:hint="Email.."
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="141dp" />
+
+        <EditText
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editPassword"
+            android:hint="Password.."
+            android:layout_below="@+id/editNick"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Insert"
+            android:id="@+id/buttonRegister"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/editPassword"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FF0000"
+            android:textSize="10pt"
+            android:id="@+id/textMessage"
+            android:layout_below="@+id/buttonRegister"
+            android:layout_centerHorizontal="true" />
+
+        <!-- Face book login
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/buttonFacebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/editEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp" />-->
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -5,13 +5,57 @@
     <!-- Tool bar -->
     <include android:id="@+id/tool_bar" layout="@layout/tool_bar"/>
 
-    <!-- Face book login -->
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tool_bar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="181dp" />
+        android:id="@+id/editEmail"
+        android:hint="Email.."
+        android:layout_above="@+id/editPassword"
+        android:layout_alignLeft="@+id/editPassword"
+        android:layout_alignStart="@+id/editPassword"
+        android:layout_marginBottom="3dp"
+        android:layout_alignRight="@+id/editPassword"
+        android:layout_alignEnd="@+id/editPassword" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editPassword"
+        android:hint="Password.."
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log in"
+        android:id="@+id/buttonLogin"
+        android:layout_below="@+id/editPassword"
+        android:layout_alignLeft="@+id/editPassword"
+        android:layout_alignStart="@+id/editPassword" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/buttonRegister"
+        android:layout_below="@+id/editPassword"
+        android:layout_toRightOf="@+id/buttonLogin"
+        android:layout_alignRight="@+id/editPassword"
+        android:layout_alignEnd="@+id/editPassword" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textMessage"
+        android:textColor="#FF0000"
+        android:textSize="10pt"
+        android:layout_below="@+id/buttonLogin"
+        android:layout_alignLeft="@+id/buttonLogin"
+        android:layout_alignStart="@+id/buttonLogin"
+        android:layout_alignRight="@+id/buttonRegister"
+        android:layout_alignEnd="@+id/buttonRegister" />
 
 </RelativeLayout>
