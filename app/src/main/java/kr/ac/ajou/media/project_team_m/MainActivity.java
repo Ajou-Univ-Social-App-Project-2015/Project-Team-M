@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
                             String passwordstr = response.getString("password");
                             if (passwordstr.equals(password)) {
-                                textMessage.setText("PASS");
+                                textMessage.setText("Sucess");
                                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
                                 startActivity(intent);
                             }

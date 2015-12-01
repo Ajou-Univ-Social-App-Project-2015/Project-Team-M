@@ -8,6 +8,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
         android:id="@+id/editEmail"
         android:hint="Email.."
         android:layout_above="@+id/editPassword"
@@ -52,10 +53,10 @@
         android:id="@+id/textMessage"
         android:textColor="#FF0000"
         android:textSize="10pt"
-        android:layout_below="@+id/buttonLogin"
-        android:layout_alignLeft="@+id/buttonLogin"
-        android:layout_alignStart="@+id/buttonLogin"
-        android:layout_alignRight="@+id/buttonRegister"
-        android:layout_alignEnd="@+id/buttonRegister" />
+        android:layout_above="@+id/editEmail"
+        android:layout_alignLeft="@+id/editEmail"
+        android:layout_alignStart="@+id/editEmail"
+        android:layout_alignRight="@+id/editEmail"
+        android:layout_alignEnd="@+id/editEmail" />
 
 </RelativeLayout>
