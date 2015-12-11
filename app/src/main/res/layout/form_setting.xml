@@ -59,6 +59,29 @@
         android:layout_toRightOf="@+id/buttonarticle"
         android:layout_toEndOf="@+id/buttonarticle" />
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listtitleView"
+        android:layout_below="@+id/buttonarticle"
+        android:layout_alignLeft="@+id/buttonarticle"
+        android:layout_alignStart="@+id/buttonarticle"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignRight="@+id/buttonlike"
+        android:layout_alignEnd="@+id/buttonlike" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/hidden"
+        android:visibility="invisible"
+        android:layout_below="@+id/buttonarticle"
+        android:layout_toLeftOf="@+id/buttonlike"
+        android:layout_toStartOf="@+id/buttonlike" />
+
+    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,5 +97,6 @@
         android:layout_marginTop="65dp"
         android:layout_alignRight="@+id/buttonlike"
         android:layout_alignEnd="@+id/buttonlike" />
+        -->
 
 </RelativeLayout>

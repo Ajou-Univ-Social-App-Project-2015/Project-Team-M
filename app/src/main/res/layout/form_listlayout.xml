@@ -71,15 +71,14 @@
         android:paddingBottom="10dp"/>
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="400px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_below="@+id/date"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/image01"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp" />
+        android:paddingRight="15dp"/>
 
     <TextView
         android:id="@+id/writername"
@@ -96,9 +95,9 @@
         android:layout_marginLeft="27dp"
         android:layout_marginStart="27dp" />
 
-    <ImageButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:id="@+id/likebutton"
         android:src="@drawable/heart_icon"
         android:layout_alignBottom="@+id/writername"
@@ -116,9 +115,9 @@
         android:layout_toLeftOf="@+id/replybutton"
         android:layout_toStartOf="@+id/replybutton" />
 
-    <ImageButton
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:id="@+id/replybutton"
         android:src="@drawable/reply_icon"
         android:layout_alignTop="@+id/likebutton"

@@ -1,12 +1,15 @@
 package kr.ac.ajou.media.project_team_m;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -15,14 +18,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
 public class SettingActivity extends AppCompatActivity {
 
-    private TextView textUsernick, textUseremail, textAlert;
+    private TextView textUsernick, textUseremail, hidden;
     private Button buttonArticle, buttonLike;
     private String email, nick;
     // Tool bar Properties
@@ -30,44 +36,60 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        final Context context = this;
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.form_setting);
-        textAlert = (TextView) findViewById(R.id.textalert);
+        hidden = (TextView) findViewById(R.id.hidden);
         textUseremail = (TextView) findViewById(R.id.useremail);
         textUsernick = (TextView) findViewById(R.id.usernick);
         buttonArticle = (Button) findViewById(R.id.buttonarticle);
         buttonLike = (Button) findViewById(R.id.buttonlike);
+        final ListView titleview = (ListView) findViewById(R.id.listtitleView);
 
         // User email, nick
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         nick = intent.getStringExtra("nick");
-
         textUsernick.setText(nick);
         textUseremail.setText(email);
+
+        // title 준비
+        final ArrayList<String> str = new ArrayList<String>();
+        final ArrayList<String> nostr = new ArrayList<String>();
+        IllPercentClient.get("/articles/" + nick, null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray success) {
+                try {
+                    for (int i = success.length() - 1; i > -1; i--) {
+                        JSONObject response = success.getJSONObject(i);
+                        String title = response.getString("title");
+                        int no = response.getInt("no");
+                        str.add(title);
+                        nostr.add(String.valueOf(no));
+                        hidden.setText(String.valueOf(no));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1,
+                android.R.id.text1, str);
 
         buttonArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IllPercentClient.get("/articles/" + nick, null, new JsonHttpResponseHandler() {
+                titleview.setAdapter(adapter);
+                titleview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray success) {
-                        try {
-                            textAlert.setText("");
-                            for (int i = 0; i < success.length(); i++) {
-                                JSONObject response = success.getJSONObject(i);
-                                String title = response.getString("title");
-                                textAlert.append(title+"\n");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        textAlert.setText("뭔가 문제임");
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(context,ArticleDetailActivity.class);
+                        String temp = hidden.getText().toString();
+                        intent.putExtra("no", nostr.get(position));
+                        intent.putExtra("email", email);
+                        intent.putExtra("nick", nick);
+                        startActivity(intent);
                     }
                 });
             }
@@ -76,7 +98,7 @@ public class SettingActivity extends AppCompatActivity {
         buttonLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textAlert.setText("준비 중 입니다.");
+                Toast.makeText(SettingActivity.this, "준비 중입니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -84,6 +106,7 @@ public class SettingActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로
         getSupportActionBar().setIcon(R.drawable.logo_lime);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +120,6 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     // Tool bar menu
-    // Inflate the menu; this adds items to the action bar if it is present.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_setting, menu);
@@ -106,20 +128,19 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection Simplifiable If Statement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(SettingActivity.this, SettingActivity.class);
             intent.putExtra("email", email);
             intent.putExtra("nick", nick);
             startActivity(intent);
             return true;
+        } else if (id == android.R.id.home) {
+            finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }

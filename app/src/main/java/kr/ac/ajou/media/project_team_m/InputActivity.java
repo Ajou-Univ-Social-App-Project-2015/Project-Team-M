@@ -19,11 +19,10 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.util.Random;
+
 import cz.msebera.android.httpclient.Header;
 
-/**
- * Created by apple7 on 2015-11-16.
- */
 public class InputActivity extends AppCompatActivity {
 
 
@@ -60,6 +59,7 @@ public class InputActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로
         getSupportActionBar().setIcon(R.drawable.logo_lime);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,18 +84,15 @@ public class InputActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection Simplifiable If Statement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(InputActivity.this, SettingActivity.class);
-            intent.putExtra("email", email);
-            intent.putExtra("nick", nick);
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.action_submit) {
+        if (id == R.id.action_submit) {
             inputArticle();
             Intent intent = new Intent(InputActivity.this, ListActivity.class);
             intent.putExtra("email", email);
             intent.putExtra("nick", nick);
             startActivity(intent);
+            return true;
+        } else if (id == android.R.id.home) {
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -108,7 +105,6 @@ public class InputActivity extends AppCompatActivity {
         for(int i=0; i<keysCheckbox.getChildCount(); i++) {
             CheckBox checkBox = (CheckBox) keysCheckbox.getChildAt(i);
             if (checkBox.isChecked()) {
-                Toast.makeText(getApplicationContext(), checkBox.getText().toString(), Toast.LENGTH_SHORT).show();
                 keys += checkBox.getText().toString()+" ";
             }
         }
@@ -123,16 +119,18 @@ public class InputActivity extends AppCompatActivity {
         params.add("title",title);
         params.add("cont",content);
         params.add("keyarray",keys);
+        int rand = new Random().nextInt(6)+1;
+        params.add("randimage", String.valueOf(rand));
 
         IllPercentClient.post("/articles", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Toast.makeText(InputActivity.this, "Created!" + statusCode, Toast.LENGTH_SHORT).show();
+                Toast.makeText(InputActivity.this, "Created!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(InputActivity.this, "Failed!" + statusCode, Toast.LENGTH_SHORT).show();
+                Toast.makeText(InputActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }

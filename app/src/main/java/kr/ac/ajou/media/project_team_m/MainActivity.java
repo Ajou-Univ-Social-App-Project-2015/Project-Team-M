@@ -66,37 +66,37 @@ public class MainActivity extends AppCompatActivity {
                 if (email.length() == 0) {
                     textMessage.setText("아이디를 입력하세요");
                     return;
-                }
-                if (password.length() == 0) {
+                } else if (password.length() == 0) {
                     textMessage.setText("비밀번호를 입력하세요");
                     return;
-                }
-
-                IllPercentClient.get("/users/" + email, null, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray success) {
-                        try {
-                            JSONObject response = success.getJSONObject(0);
-                            String nick = response.getString("nick");
-                            String passwordstr = response.getString("password");
-                            if (passwordstr.equals(password)) {
-                                textMessage.setText("Success");
-                                Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                                intent.putExtra("email", editEmail.getText().toString());
-                                intent.putExtra("nick", nick);
-                                editEmail.setText("");
-                                editPassword.setText("");
-                                startActivity(intent);
-                            } else textMessage.setText("Failed");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                } else {
+                    IllPercentClient.get("/users/" + email, null, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray success) {
+                            try {
+                                JSONObject response = success.getJSONObject(0);
+                                String nick = response.getString("nick");
+                                String passwordstr = response.getString("password");
+                                if (passwordstr.equals(password)) {
+                                    textMessage.setText("Success");
+                                    Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                                    intent.putExtra("email", editEmail.getText().toString());
+                                    intent.putExtra("nick", nick);
+                                    editEmail.setText("");
+                                    editPassword.setText("");
+                                    startActivity(intent);
+                                    finish();
+                                } else textMessage.setText("일치하지 않습니다.");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        textMessage.setText("뭔가 문제임");
-                    }
-                });
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            textMessage.setText("뭔가 문제임");
+                        }
+                    });
+                }
             }
         });
 
@@ -118,12 +118,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
 
     // Tool bar menu
-    // Inflate the menu; this adds items to the action bar if it is present.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -132,9 +132,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }

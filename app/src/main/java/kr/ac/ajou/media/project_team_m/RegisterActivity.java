@@ -115,12 +115,12 @@ public class RegisterActivity extends AppCompatActivity{
                 IllPercentClient.post("/users", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Toast.makeText(RegisterActivity.this, "Created!" + statusCode, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Toast.makeText(RegisterActivity.this, "Failed!" + statusCode, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Sorry! Errorcode: " + statusCode, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -150,12 +150,14 @@ public class RegisterActivity extends AppCompatActivity{
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로
         getSupportActionBar().setIcon(R.drawable.logo_lime);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -175,13 +177,13 @@ public class RegisterActivity extends AppCompatActivity{
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

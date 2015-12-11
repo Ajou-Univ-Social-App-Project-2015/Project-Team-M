@@ -2,7 +2,7 @@ package kr.ac.ajou.media.project_team_m;
 
 
 public class ListItem {
-    private String title, content, date, writer, keys, like, reply;
+    private String title, content, date, writer, keys, like, reply, rand;
     private int no;
 
     public int getNo() {
@@ -67,5 +67,13 @@ public class ListItem {
 
     public void setKeys(String keys) {
         this.keys = keys;
+    }
+
+    public String getRand() {
+        return rand;
+    }
+
+    public void setRand(String rand) {
+        this.rand = rand;
     }
 }

@@ -30,6 +30,7 @@
         <activity android:name=".InputActivity"/>
         <activity android:name=".SettingActivity"/>
         <activity android:name=".ArticleDetailActivity"/>
+        <activity android:name=".ArticleCommentActivity"/>
 
     </application>
 
