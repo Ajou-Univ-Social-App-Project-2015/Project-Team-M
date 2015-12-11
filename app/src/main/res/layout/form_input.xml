@@ -9,17 +9,15 @@
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="36dp"
         android:scrollbars="none"
         android:id="@+id/horizontalScrollView"
         android:background="@color/ColorPrimaryDark">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/keywords_checkbox"
             android:orientation="horizontal"></LinearLayout>
-
     </HorizontalScrollView>
 
 
@@ -37,13 +35,5 @@
         android:id="@+id/input_content"
         android:hint="Content"
         android:layout_weight="0.56" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button_input"
-        android:onClick="onClick"
-        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Tool bar -->
+    <include android:id="@+id/tool_bar" layout="@layout/tool_bar"/>
+
+    <ImageView
+        android:layout_width="150px"
+        android:layout_height="150px"
+        android:id="@+id/userimage"
+        android:src="@drawable/ic_account_grey"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/tool_bar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="김아무개"
+        android:id="@+id/usernick"
+        android:layout_alignTop="@+id/userimage"
+        android:layout_toRightOf="@+id/userimage"
+        android:layout_toEndOf="@+id/userimage"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aaa@ajou.ac.kr"
+        android:id="@+id/useremail"
+        android:textSize="8pt"
+        android:textStyle="normal"
+        android:typeface="sans"
+        android:layout_below="@+id/usernick"
+        android:layout_alignLeft="@+id/usernick"
+        android:layout_alignStart="@+id/usernick" />
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="작성글"
+        android:id="@+id/buttonarticle"
+        android:layout_below="@+id/userimage"
+        android:layout_alignLeft="@+id/userimage"
+        android:layout_alignStart="@+id/userimage" />
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="좋아하는 글"
+        android:id="@+id/buttonlike"
+        android:layout_alignTop="@+id/buttonarticle"
+        android:layout_toRightOf="@+id/buttonarticle"
+        android:layout_toEndOf="@+id/buttonarticle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="8pt"
+        android:textStyle="normal"
+        android:typeface="sans"
+        android:textColor="@color/ColorPrimaryDark"
+        android:id="@+id/textalert"
+        android:layout_below="@+id/buttonarticle"
+        android:layout_alignLeft="@+id/buttonarticle"
+        android:layout_alignStart="@+id/buttonarticle"
+        android:layout_marginTop="65dp"
+        android:layout_alignRight="@+id/buttonlike"
+        android:layout_alignEnd="@+id/buttonlike" />
+
+</RelativeLayout>

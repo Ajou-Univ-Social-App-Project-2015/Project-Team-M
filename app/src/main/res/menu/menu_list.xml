@@ -1,18 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".InputActivity">
+    tools:context=".ListActivity">
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings_white"
         android:orderInCategory="200"
+        android:icon="@drawable/ic_settings_white"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_submit"
-        android:title="Submit"
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:orderInCategory="200"
+        android:icon="@drawable/ic_magnify_white"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_write"
+        android:title="Write"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_check_white"
+        android:icon="@drawable/ic_pencil_white"
         app:showAsAction="ifRoom"/>
 
 </menu>

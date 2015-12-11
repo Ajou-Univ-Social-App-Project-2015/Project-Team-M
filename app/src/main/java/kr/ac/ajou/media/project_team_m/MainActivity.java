@@ -2,6 +2,8 @@ package kr.ac.ajou.media.project_team_m;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.prefs.PreferenceChangeEvent;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -69,24 +72,26 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                IllPercentClient.get("/users/"+email, null, new JsonHttpResponseHandler() {
+                IllPercentClient.get("/users/" + email, null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray success) {
                         try {
                             JSONObject response = success.getJSONObject(0);
-
+                            String nick = response.getString("nick");
                             String passwordstr = response.getString("password");
                             if (passwordstr.equals(password)) {
-                                textMessage.setText("Sucess");
+                                textMessage.setText("Success");
                                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                                intent.putExtra("email", editEmail.getText().toString());
+                                intent.putExtra("nick", nick);
+                                editEmail.setText("");
+                                editPassword.setText("");
                                 startActivity(intent);
-                            }
-                            else textMessage.setText("Failed");
+                            } else textMessage.setText("Failed");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         textMessage.setText("뭔가 문제임");
@@ -103,12 +108,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        editEmail.setText(intent.getStringExtra("email"));
-
         // Action bar
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo_lime);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     // Tool bar menu
@@ -125,12 +136,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection Simplifiable If Statement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

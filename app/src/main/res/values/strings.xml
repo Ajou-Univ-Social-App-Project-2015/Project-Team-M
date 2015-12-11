@@ -7,15 +7,25 @@
     <string name="facebook_app_id">1696403760645972</string>
     
     <string-array name="keywords">
-        <item>first</item>
-        <item>second</item>
-        <item>third</item>
-        <item>fourth</item>
-        <item>fifth</item>
-        <item>sixth</item>
-        <item>seventh</item>
-        <item>eighth</item>
-        <item>ninth</item>
-        <item>tenth</item>
+        <item>animal</item>
+        <item>art</item>
+        <item>design</item>
+        <item>dream</item>
+        <item>family</item>
+        <item>fashion</item>
+        <item>friend</item>
+        <item>gift</item>
+        <item>health</item>
+        <item>history</item>
+        <item>idea</item>
+        <item>life</item>
+        <item>love</item>
+        <item>music</item>
+        <item>nature</item>
+        <item>picture</item>
+        <item>plants</item>
+        <item>sports</item>
+        <item>technology</item>
+        <item>travel</item>
     </string-array>
 </resources>

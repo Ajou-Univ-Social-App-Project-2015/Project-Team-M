@@ -108,7 +108,6 @@ public class RegisterActivity extends AppCompatActivity{
 
                 if (email.length() == 0 || nick.length() == 0 || password.length() == 0) textMessage.setText("채우세요");
                 RequestParams params = new RequestParams();
-                params.add("id", "testing");
                 params.add("nick", nick);
                 params.add("email", email);
                 params.add("password", password);
@@ -126,7 +125,6 @@ public class RegisterActivity extends AppCompatActivity{
                 });
 
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                intent.putExtra("email", editEmail.getText().toString());
                 startActivity(intent);
             }
         });
@@ -149,8 +147,17 @@ public class RegisterActivity extends AppCompatActivity{
 //                        }}});}});
 
         // Action bar
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo_lime);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /*
@@ -175,12 +182,6 @@ public class RegisterActivity extends AppCompatActivity{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection Simplifiable If Statement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

@@ -5,16 +5,9 @@
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings_white"
-        android:orderInCategory="200"
-        app:showAsAction="ifRoom" />
-
-    <item android:id="@+id/action_submit"
-        android:title="Submit"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_check_white"
-        app:showAsAction="ifRoom"/>
-
+        android:icon="@drawable/ic_settings_white"
+        app:showAsAction="ifRoom" />
 </menu>
 
     <!-- android:onClick="searchClick" -->

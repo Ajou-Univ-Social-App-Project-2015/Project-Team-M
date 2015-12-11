@@ -2,9 +2,16 @@ package kr.ac.ajou.media.project_team_m;
 
 
 public class ListItem {
-    private String title, content, date, writername;
-    int like, reply;
-    private String[] keys;
+    private String title, content, date, writer, keys, like, reply;
+    private int no;
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
 
     public String getTitle() {
         return title;
@@ -30,35 +37,35 @@ public class ListItem {
         this.date = date;
     }
 
-    public String getWritername() {
-        return writername;
+    public String getWriter() {
+        return writer;
     }
 
-    public void setWritername(String writername) {
-        this.writername = writername;
+    public void setWriter(String writername) {
+        this.writer = writername;
     }
 
-    public int getLike() {
+    public String getLike() {
         return like;
     }
 
-    public void setLike(int like) {
+    public void setLike(String like) {
         this.like = like;
     }
 
-    public int getReply() {
+    public String getReply() {
         return reply;
     }
 
-    public void setReply(int reply) {
+    public void setReply(String reply) {
         this.reply = reply;
     }
 
-    public String[] getKeys() {
+    public String getKeys() {
         return keys;
     }
 
-    public void setKeys(String[] keys) {
+    public void setKeys(String keys) {
         this.keys = keys;
     }
 }

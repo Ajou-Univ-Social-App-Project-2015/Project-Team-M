@@ -28,6 +28,8 @@
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".ListActivity"/>
         <activity android:name=".InputActivity"/>
+        <activity android:name=".SettingActivity"/>
+        <activity android:name=".ArticleDetailActivity"/>
 
     </application>
 

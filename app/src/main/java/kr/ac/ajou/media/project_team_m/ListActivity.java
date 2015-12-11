@@ -1,5 +1,6 @@
 package kr.ac.ajou.media.project_team_m;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,12 +9,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ListActivity extends AppCompatActivity {
 
+    public String email, nick;
+    private ListView listView;
+    ListAdapter listAdapter;
     // Tool bar Properties
     private Toolbar toolbar;
 
@@ -22,84 +38,81 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_list);
 
-        ArrayList detail = getListData();
-        final ListView listView = (ListView) findViewById(R.id.activityview);
-        listView.setAdapter(new ListAdapter(this, detail));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object o = listView.getItemAtPosition(position);
-                ListItem data = (ListItem) o;
-                Toast.makeText(ListActivity.this, "Selected: "+ data, Toast.LENGTH_LONG).show();
-            }
-        });
+        listView = (ListView) findViewById(R.id.activityview);
+        listAdapter = new ListAdapter(this);
+        listView.setAdapter(listAdapter);
+        adapterFunction(listAdapter);
+
+        // User email
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+        nick = intent.getStringExtra("nick");
 
         // Action bar
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo_lime);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, ListActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("nick", nick);
+                startActivity(intent);
+            }
+        });
     }
 
     // Adapter
-    private ArrayList getListData() {
-        ArrayList<ListItem> results = new ArrayList<ListItem>();
+    private void adapterFunction(ListAdapter adapter) {
+        final ListAdapter a = adapter;
 
-        ListItem data = new ListItem();
-        data.setTitle("The Mist");
-        data.setContent("My soul was floating above a moonlit sea\n" +
-                "At the same time I was drowning, it felt somehow freeing\n" +
-                "Enraptured by his eyes, the burning eyes of a supreme hypnotist\n" +
-                "I followed him into the mist");
-        data.setDate("2015-12-01-22:55-TUE");
-        data.setLike(2);
-        data.setReply(2);
-        data.setWritername("Lucy");
-        results.add(data);
+        IllPercentClient.get("/articles", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray success) {
+                try {
+                    for (int i = 0; i < success.length(); i++) {
+                        JSONObject response = success.getJSONObject(i);
+                        String date = response.getString("createdate").substring(9,28);
+                        a.addItem(response.getInt("no"), response.getString("title"), response.getString("cont"),
+                                "Written by "+response.getString("writer"), date, response.getString("commentcount"),
+                                response.getString("likecount"), response.getString("keyarray"));
+                    }
 
-        // add other data.....
-        ListItem data2 = new ListItem();
-        data2.setTitle("Please Don't Make Me Love You");
-        data2.setContent("You're the one I think of soon as I awaken\n" +
-                "Funny how the heart tells the mind what to do\n" +
-                "I'm not sure I can go through all the joy and the pain\n" +
-                "Much better now to let these dreams take flight");
-        data2.setDate("2015-12-01-22:57-TUE");
-        data2.setLike(8);
-        data2.setReply(5);
-        data2.setWritername("Mina");
-        results.add(data2);
-
-        ListItem data3 = new ListItem();
-        data3.setTitle("Loving you keeps me alive");
-        data3.setContent("Loving you keeps me alive, think again before you leave me\n" +
-                "His love cannot be as true as the love I offer you\n" +
-                "You're wasting time pretending you belong to him\n" +
-                "Come to your senses");
-        data3.setDate("2015-12-01-22:30-TUE");
-        data3.setLike(3);
-        data3.setReply(4);
-        data3.setWritername("Xia");
-        results.add(data3);
-        return results;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     // Tool bar menu
     // Inflate the menu; this adds items to the action bar if it is present.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection Simplifiable If Statement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(ListActivity.this, SettingActivity.class);
+            intent.putExtra("email", email);
+            intent.putExtra("nick", nick);
+            startActivity(intent);
             return true;
+        } else if (id == R.id.action_write) {
+            Intent intent = new Intent(ListActivity.this, InputActivity.class);
+            intent.putExtra("email", email);
+            intent.putExtra("nick", nick);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_search) {
+            Toast.makeText(ListActivity.this, "기능 준비 중입니다.", Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);
