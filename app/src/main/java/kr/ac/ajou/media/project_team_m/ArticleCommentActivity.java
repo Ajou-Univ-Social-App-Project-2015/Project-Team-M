@@ -63,7 +63,6 @@ public class ArticleCommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String cont = editCont.getText().toString();
-                final int[] commentcount = new int[1];
 
                 if (cont.length() == 0) Toast.makeText(ArticleCommentActivity.this, "내용을 다시 확인하세요.", Toast.LENGTH_SHORT).show();
                 else {
@@ -76,6 +75,13 @@ public class ArticleCommentActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             Toast.makeText(ArticleCommentActivity.this, "작성!", Toast.LENGTH_SHORT).show();
+                            editCont.setText("");
+                            Intent intent = new Intent(ArticleCommentActivity.this, ArticleCommentActivity.class);
+                            intent.putExtra("email", email);
+                            intent.putExtra("nick", nick);
+                            intent.putExtra("no", no);
+                            startActivity(intent);
+                            finish();
                         }
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
@@ -84,29 +90,32 @@ public class ArticleCommentActivity extends AppCompatActivity {
                     });
 
                     // 댓글 카운트
-                    IllPercentClient.get("/articlecomments/"+no, null, new JsonHttpResponseHandler() {
+                    IllPercentClient.get("/details/" + no, null, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONArray success) {
                             try {
                                 JSONObject response = success.getJSONObject(0);
-                                commentcount[0] = response.getInt("commentcount");
+                                int count = Integer.valueOf(response.getString("commentcount"));
+
+                                RequestParams params2 = new RequestParams();
+                                int temp = count+1;
+                                params2.add("commentcount", Integer.toString(temp));
+                                IllPercentClient.put("/comments/" + no, params2, new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                        //Toast.makeText(ArticleCommentActivity.this, "!", Toast.LENGTH_LONG).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                        //Toast.makeText(ArticleCommentActivity.this, "fail: " + statusCode + "/no: " + no, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
-                    });
-
-                    RequestParams params2 = new RequestParams();
-                    int temp = commentcount[0]+1;
-                    params.add("commentcount", Integer.toString(temp));
-                    IllPercentClient.put("/comments/" + no, params, new AsyncHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            Toast.makeText(ArticleCommentActivity.this, "!", Toast.LENGTH_LONG).show();
-                        }
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                            Toast.makeText(ArticleCommentActivity.this, "fail: " + statusCode + "/no: " + no, Toast.LENGTH_LONG).show();
                         }
                     });
                 }

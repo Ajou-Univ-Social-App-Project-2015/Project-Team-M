@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="내용이 어쩌고 저쩌고"
+        android:text="내용이 어쩌고 저쩌고 뺨뺨뺨"
         android:textSize="9pt"
         android:textStyle="normal"
         android:typeface="sans"
@@ -37,9 +37,10 @@
         android:textStyle="normal"
         android:typeface="sans"
         android:id="@+id/date"
+        android:layout_alignBaseline="@+id/username"
         android:layout_alignBottom="@+id/username"
-        android:layout_toRightOf="@+id/content"
-        android:layout_toEndOf="@+id/content" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="100px"

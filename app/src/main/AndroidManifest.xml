@@ -25,12 +25,30 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity"/>
-        <activity android:name=".ListActivity"/>
-        <activity android:name=".InputActivity"/>
-        <activity android:name=".SettingActivity"/>
-        <activity android:name=".ArticleDetailActivity"/>
-        <activity android:name=".ArticleCommentActivity"/>
+        <activity android:name=".RegisterActivity"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""/>
+        <activity android:name=".ListActivity"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""/>
+        <activity android:name=".InputActivity"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""/>
+        <activity android:name=".SettingActivity"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""/>
+        <activity android:name=".ArticleDetailActivity"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""/>
+        <activity android:name=".ArticleCommentActivity"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""/>
 
     </application>
 
