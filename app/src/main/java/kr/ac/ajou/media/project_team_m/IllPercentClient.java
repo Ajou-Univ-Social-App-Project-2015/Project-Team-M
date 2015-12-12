@@ -5,8 +5,11 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class IllPercentClient {
-    /* http://webauthoring.ajou.ac.kr/~sap15M/illpercent/index.php */
-    private static final String BASE_URL = "http://192.168.56.1/illpercent/index.php";
+    /* http://webauthoring.ajou.ac.kr/~sap15M/illpercent/index.php
+    * 202.30.23.51
+    * 192.168.56.1
+    * */
+    private static final String BASE_URL = "http://202.30.23.51/~sap15M/trial/index.php";
     private static AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {

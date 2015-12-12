@@ -3,6 +3,7 @@ package kr.ac.ajou.media.project_team_m;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
