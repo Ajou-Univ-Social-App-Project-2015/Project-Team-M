@@ -26,41 +26,27 @@
         </activity>
 
         <activity android:name=".RegisterActivity"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""/>
+            android:launchMode="singleTask" />
         <activity android:name=".ListActivity"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""/>
+            android:launchMode="singleTask"/>
         <activity android:name=".InputActivity"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""/>
+            android:launchMode="singleTask" />
         <activity android:name=".SettingActivity"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""/>
+            android:launchMode="singleTask" />
         <activity android:name=".ArticleDetailActivity"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""/>
+            android:launchMode="singleTask" />
         <activity android:name=".ArticleCommentActivity"
-            android:launchMode="singleInstance"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""/>
+            android:launchMode="singleTask" />
 
     </application>
 
 </manifest>
 
     <!--
-
         ***** 구현 해야 할 것
         Server: REST API (특히 키워드), Image upload, Authentication
         백엔드 스케쥴러: 모아보기를 위한 게시글 분석 및 클러스터링
         앱: 사진 업로드 및 게시글, 댓글 CRUD, 좋아요, 모아보기, 키워드 검색, 마이페이지 등
 
         HashKey: EObovF2aXdOKVsHmHyJ1V5b/iwI=
-
     -->

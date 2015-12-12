@@ -54,6 +54,26 @@ public class ArticleCommentActivity extends AppCompatActivity {
         editCont = (EditText) findViewById(R.id.replycontent);
         input = (ImageView) findViewById(R.id.replyimagebutton);
 
+        // Action bar
+        toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true); // 뒤로
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo_lime);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ArticleCommentActivity.this, ListActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("nick", nick);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         listView = (ListView) findViewById(R.id.replyview);
         replyAdapter = new ReplyAdapter(this);
         listView.setAdapter(replyAdapter);
@@ -64,7 +84,8 @@ public class ArticleCommentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String cont = editCont.getText().toString();
 
-                if (cont.length() == 0) Toast.makeText(ArticleCommentActivity.this, "내용을 다시 확인하세요.", Toast.LENGTH_SHORT).show();
+                if (cont.length() == 0)
+                    Toast.makeText(ArticleCommentActivity.this, "내용을 다시 확인하세요.", Toast.LENGTH_SHORT).show();
                 else {
                     RequestParams params = new RequestParams();
                     params.add("writer", nick);
@@ -83,6 +104,7 @@ public class ArticleCommentActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
+
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                             Toast.makeText(ArticleCommentActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
@@ -98,7 +120,7 @@ public class ArticleCommentActivity extends AppCompatActivity {
                                 int count = Integer.valueOf(response.getString("commentcount"));
 
                                 RequestParams params2 = new RequestParams();
-                                int temp = count+1;
+                                int temp = count + 1;
                                 params2.add("commentcount", Integer.toString(temp));
                                 IllPercentClient.put("/comments/" + no, params2, new AsyncHttpResponseHandler() {
                                     @Override
@@ -121,24 +143,7 @@ public class ArticleCommentActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Action bar
-        toolbar = (Toolbar)findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true); // 뒤로
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.logo_lime);
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ArticleCommentActivity.this, ListActivity.class);
-                intent.putExtra("email", email);
-                intent.putExtra("nick", nick);
-                startActivity(intent);
-            }
-        });
     }
-
 
     private void adapterFunction(ReplyAdapter adapter) {
         final ReplyAdapter a = adapter;

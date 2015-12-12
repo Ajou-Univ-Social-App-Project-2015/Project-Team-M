@@ -1,7 +1,9 @@
 package kr.ac.ajou.media.project_team_m;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -45,19 +47,18 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_list);
+        listView = (ListView) findViewById(R.id.activityview);
+        listAdapter = new ListAdapter(this);
+        listView.setAdapter(listAdapter);
+        adapterFunction(listAdapter);
 
         // User email
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         nick = intent.getStringExtra("nick");
 
-        listView = (ListView) findViewById(R.id.activityview);
-        listAdapter = new ListAdapter(this);
-        listView.setAdapter(listAdapter);
-        adapterFunction(listAdapter);
-
         // Action bar
-        toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setIcon(R.drawable.logo_lime);
