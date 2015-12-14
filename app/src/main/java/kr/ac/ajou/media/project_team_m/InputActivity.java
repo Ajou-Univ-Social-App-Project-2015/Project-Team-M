@@ -89,17 +89,23 @@ public class InputActivity extends AppCompatActivity {
             Intent intent = new Intent(InputActivity.this, ListActivity.class);
             intent.putExtra("email", email);
             intent.putExtra("nick", nick);
+            editContent.setText("");
+            editTitle.setText("");
             startActivity(intent);
             return true;
         } else if (id == android.R.id.home) {
-            finish();
+            Intent intent = new Intent(InputActivity.this, ListActivity.class);
+            intent.putExtra("email", email);
+            intent.putExtra("nick", nick);
+            editContent.setText("");
+            editTitle.setText("");
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void inputArticle() {
-
         String keys = "";
         // checkbox: Keywords
         for(int i=0; i<keysCheckbox.getChildCount(); i++) {
@@ -114,24 +120,26 @@ public class InputActivity extends AppCompatActivity {
         String content = editContent.getText().toString();
 
         if(title.length() == 0 || content.length() == 0) Toast.makeText(getApplicationContext(), "채우세요.", Toast.LENGTH_SHORT).show();
-        RequestParams params = new RequestParams();
-        params.add("writer",nick);
-        params.add("title",title);
-        params.add("cont",content);
-        params.add("keyarray",keys);
-        int rand = new Random().nextInt(6)+1;
-        params.add("randimage", String.valueOf(rand));
+        else {
+            RequestParams params = new RequestParams();
+            params.add("writer",nick);
+            params.add("title",title);
+            params.add("cont",content);
+            params.add("keyarray",keys);
+            int rand = new Random().nextInt(6)+1;
+            params.add("randimage", String.valueOf(rand));
 
-        IllPercentClient.post("/articles", params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Toast.makeText(InputActivity.this, "Created!", Toast.LENGTH_SHORT).show();
-            }
+            IllPercentClient.post("/articles", params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    Toast.makeText(InputActivity.this, "Created!", Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(InputActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    Toast.makeText(InputActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

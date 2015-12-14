@@ -48,7 +48,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_list);
         listView = (ListView) findViewById(R.id.activityview);
-        listAdapter = new ListAdapter(this);
+        ListAdapter listAdapter = new ListAdapter(this);
         listView.setAdapter(listAdapter);
         adapterFunction(listAdapter);
 
@@ -122,6 +122,12 @@ public class ListActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_search) {
             Toast.makeText(ListActivity.this, "기능 준비 중입니다.", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.home) {
+            Intent intent = new Intent(ListActivity.this, ListActivity.class);
+            intent.putExtra("email", email);
+            intent.putExtra("nick", nick);
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

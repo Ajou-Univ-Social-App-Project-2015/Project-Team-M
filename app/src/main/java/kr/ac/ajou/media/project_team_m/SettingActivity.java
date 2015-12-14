@@ -2,6 +2,7 @@ package kr.ac.ajou.media.project_team_m;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +31,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private TextView textUsernick, textUseremail, hidden;
     private Button buttonArticle, buttonLike;
+    private ImageView userImage;
     private String email, nick;
     // Tool bar Properties
     private Toolbar toolbar;
@@ -45,6 +47,7 @@ public class SettingActivity extends AppCompatActivity {
         textUsernick = (TextView) findViewById(R.id.usernick);
         buttonArticle = (Button) findViewById(R.id.buttonarticle);
         buttonLike = (Button) findViewById(R.id.buttonlike);
+        userImage = (ImageView) findViewById(R.id.userimage);
         final ListView titleview = (ListView) findViewById(R.id.listtitleView);
 
         // User email, nick
@@ -53,6 +56,18 @@ public class SettingActivity extends AppCompatActivity {
         nick = intent.getStringExtra("nick");
         textUsernick.setText(nick);
         textUseremail.setText(email);
+        textUsernick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SettingActivity.this, "닉네임을 수정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SettingActivity.this, "사진을 수정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // title 준비
         final ArrayList<String> str = new ArrayList<String>();
@@ -136,7 +151,10 @@ public class SettingActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (id == android.R.id.home) {
-            finish();
+            Intent intent = new Intent(SettingActivity.this, ListActivity.class);
+            intent.putExtra("email", email);
+            intent.putExtra("nick", nick);
+            startActivity(intent);
             return true;
         }
 
